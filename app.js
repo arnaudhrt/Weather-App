@@ -1,13 +1,14 @@
 const container = document.querySelector(".container");
-const search = document.querySelector(".search-box button");
+const search = document.querySelector(".search-box");
 const weatherBox = document.querySelector(".weather-box");
 const weatherDetails = document.querySelector(".weather-details");
 const error404 = document.querySelector(".not-found");
 
-search.addEventListener("click", () => {
+search.addEventListener("submit", (event) => {
+    event.preventDefault();
   const APIKeys = "d11b9bc2161fe1f21145a63c54090eeb";
   const city = document.querySelector(".search-box input").value;
-  fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKeys}`)
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKeys}`)
     .then((response) => response.json())
     .then((json) => {
       if (json.cod == "200") {
@@ -38,7 +39,7 @@ search.addEventListener("click", () => {
             image.src = "images/cloud.png";
             break;
 
-          case "Haze":
+          case "Mist":
             image.src = "images/mist.png";
             break;
 
