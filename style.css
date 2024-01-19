@@ -149,7 +149,7 @@ body {
     scale: 0;
     opacity: 0;
 }
-.fade-in {
+.fadeIn {
     animation: 0.5s fadeIn forwards;
     animation-delay: 0.5s;
 }
