@@ -1,22 +1,41 @@
 const container = document.querySelector(".container");
 const search = document.querySelector(".search-box");
+const searchInput = document.querySelector('.search-box input');
 const weatherBox = document.querySelector(".weather-box");
 const weatherDetails = document.querySelector(".weather-details");
 const error404 = document.querySelector(".not-found");
 const APIKeys = "d11b9bc2161fe1f21145a63c54090eeb";
 
+
+function removeSuggestion () {
+    const suggestions = document.querySelectorAll('.suggestion');
+    if (suggestions) {
+        container.style.maxHeight = "105px";
+        suggestions.forEach((suggestion) => {
+            suggestion.parentNode.removeChild(suggestion);
+        });
+
+    }
+}
+
+
+searchInput.addEventListener('input', removeSuggestion)
+
+
 search.addEventListener("submit", (event) => {
+
   const city = document.querySelector(".search-box input").value;
-  console.log(city);
   event.preventDefault();
+
   fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=3&appid=${APIKeys}`)
     .then((response) => response.json())
     .then((json) => {
-      for (let i = json.length - 1; i > 0; i--) {
+        const reverseList = json.slice().reverse()
+      for (let i = 0; i < reverseList.length; i++) {
         const suggestionContainer = `<div class="suggestion">
-              <span class="city">${json[i].name}</span>
-              <span class="country">${json[i].state}</span>
-              <span class="country">${json[i].country}</span>
+              <span class="city">${reverseList[i].name}</span>
+              <span class="country">${reverseList[i].state}</span>
+              <span class="country">${reverseList[i].country}</span>
           </div>`;
         search.insertAdjacentHTML("afterend", suggestionContainer);
       }
