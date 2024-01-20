@@ -23,7 +23,7 @@ search.addEventListener("submit", (event) => {
   const city = document.querySelector(".search-box input").value;
   event.preventDefault();
 
-  fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=3&appid=${APIKeys}`)
+  fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=3&appid=${APIKeys}`)
     .then((response) => response.json())
     .then((json) => {
       console.log(json);
